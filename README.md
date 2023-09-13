@@ -1,7 +1,14 @@
 # DFRobot_I2C_RGBButton (Work in progress)
 ESPHome custom integration for the [DFRobot I2C RGBButton](https://wiki.dfrobot.com/SKU_DFR0991_Gravity_I2C_RGB_LED_Button_Module).
 
+# !! Currently not working !!
+
+**_ESPHome does not recognize this custom component as a component -_-_**
+
+
+
 You can interact with the button via functions:
+
 `set_button_color(uint8_t r, uint8_t g, uint8_t b)` to set the color of the button (r, g, b)
 
 `get_button_color()` to get the color of the button (not implemented yet)
