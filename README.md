@@ -3,7 +3,9 @@ ESPHome custom integration for the [DFRobot I2C RGBButton](https://wiki.dfrobot.
 
 You can interact with the button via functions:
 `set_button_color(uint8_t r, uint8_t g, uint8_t b)` to set the color of the button (r, g, b)
+
 `get_button_color()` to get the color of the button (not implemented yet)
+
 `get_button_state()` to get the current state of the button (boolean)
 
 Example:
