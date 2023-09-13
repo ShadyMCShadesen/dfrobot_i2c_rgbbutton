@@ -3,9 +3,9 @@ ESPHome custom integration for the [DFRobot I2C RGBButton](https://wiki.dfrobot.
 
 # !! Currently not working !!
 
-**_ESPHome does not recognize this custom component as a component -_-_**
+**_ESPHome does not recognize this custom component as a component :(_**
 
-
+# Functionality
 
 You can interact with the button via functions:
 
