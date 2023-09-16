@@ -17,6 +17,8 @@ You can interact with the button via functions:
 
 `get_button_state()` to get the current state of the button (boolean; for example `true` if pressed)
 
+# YAML
+
 Example:
 ```yaml
 # Import external_component from github
@@ -49,6 +51,12 @@ dfrobot_i2c_rgbbutton:
     update_interval: 1s
     button: # binary_sensor configuration
       id: i2c_rgbbutton_sensor
+      on_press: # set button color to red while pressed
+        then:
+          - lambda: id(i2c_rgbbutton).set_button_color(0xFF0000)
+      on_release: # set button color back to white if released
+        then:
+          - lambda: id(i2c_rgbbutton).set_button_color(0xFFFFFF)
 ```
 
 # Optional parameters
