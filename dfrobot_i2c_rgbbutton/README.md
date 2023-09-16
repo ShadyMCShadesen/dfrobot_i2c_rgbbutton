@@ -43,8 +43,9 @@ i2c:
 
 dfrobot_i2c_rgbbutton:
   - id: i2c_rgbbutton
-    address: 0x2A
+    address: 0x23
     wire: false
+    color: 0xFFFFFF
     update_interval: 1s
     button: # binary_sensor configuration
       id: i2c_rgbbutton_sensor
@@ -55,6 +56,8 @@ dfrobot_i2c_rgbbutton:
 `address:` i2c address of the button module, default 0x23
 
 `wire:` true if the button is connected on a secondary i2c bus, default false
+
+`color:` default color of the button, default 0xFFFFFF (white)
 
 `update_interval:` interval for the state update of the button, default 1s
 
