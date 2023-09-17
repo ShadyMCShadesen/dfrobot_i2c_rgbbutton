@@ -39,7 +39,7 @@ async def to_code(config):
         cg.add(var.set_color(config[CONF_DEFAULT_COLOR]))
     if (CONF_ADDRESS in config) or (CONF_SECONDARY_BUS in config):
         cg.add(var.set_button_address(config[CONF_ADDRESS]))
-        cg.add(var.set_button_wire(config[CONF_SECONDARY_BUS]))
+        cg.add(var.set_button_bus(config[CONF_SECONDARY_BUS]))
 
     if CONF_BUTTON in config:
         button = await binary_sensor.new_binary_sensor(config[CONF_BUTTON])
