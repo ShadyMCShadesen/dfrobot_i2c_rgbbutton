@@ -30,14 +30,17 @@ void DFRobot_i2c_RGBButton::setup() { // triggers at startup
   ESP_LOGI(TAG, "Setting up DFRobot_i2c_RGBButton...");
 
   if(!this->begin()){ // initialize connection
-    ESP_LOGE(TAG, "NO devices found with address %d!", this->address_);
+    ESP_LOGE(TAG, "NO device found with address %d!", this->address_);
     ESP_LOGE(TAG, "DFRobot_i2c_RGBButton setup failed!");
-    this->mark_failed();
+    this->mark_failed(); // mark component as failed if device is not reacting
     return;
   }
 
-  this->set_button_color(this->default_color_); // set default button color
+  uint16_t productID = this->getPID();
   ESP_LOGI(TAG, "Device with address %d connected successfully!", this->address_);
+  ESP_LOGI(TAG, "Product ID: %d", productID);
+
+  this->set_button_color(this->default_color_); // set default button color
 }
 
 void DFRobot_i2c_RGBButton::loop() { } // triggers every clock cycle
