@@ -27,24 +27,24 @@ float DFRobot_i2c_RGBButton::get_setup_priority() const { return setup_priority:
 void DFRobot_i2c_RGBButton::setup() { // triggers at startup
   ESP_LOGI(TAG, "Setting up DFRobot_i2c_RGBButton...");
 
-  if(!this->begin()){ // initialize connection
+  if(!begin()){ // initialize connection
     ESP_LOGE(TAG, "NO device found with address %d!", this->address_);
     ESP_LOGE(TAG, "DFRobot_i2c_RGBButton setup failed!");
     this->mark_failed(); // mark component as failed if device is not reacting
     return;
   }
 
-  uint16_t productID = this->get_pid();
+  uint16_t productID = get_pid();
   ESP_LOGI(TAG, "Device with address %d connected successfully!", this->address_);
   ESP_LOGI(TAG, "Product ID: %d", productID);
 
-  this->set_button_color(this->default_color_); // set default button color
+  set_button_color(this->default_color_); // set default button color
 }
 
 void DFRobot_i2c_RGBButton::loop() { } // triggers every clock cycle
 
 void DFRobot_i2c_RGBButton::update() { // triggers on update_interval
-  this->get_button_state(); // get button state
+  get_button_state(); // get button state
 }
 
 void DFRobot_i2c_RGBButton::set_button_color(uint8_t r, uint8_t g, uint8_t b) { // set button color via r, g, b values
@@ -148,7 +148,7 @@ bool DFRobot_i2c_RGBButton::begin(void) {
     return false;
   }
 
-  if(RGBBUTTON_PART_ID != this->concat_bytes(idBuf[0], idBuf[1])) {   // Judge whether the chip version matches
+  if(RGBBUTTON_PART_ID != concat_bytes(idBuf[0], idBuf[1])) {   // Judge whether the chip version matches
     return false;
   }
 
@@ -167,7 +167,7 @@ uint8_t DFRobot_i2c_RGBButton::get_i2c_address(void) {
 uint16_t DFRobot_i2c_RGBButton::get_pid(void) {
   uint8_t pidBuf[2];
   this->read_register(RGBBUTTON_PID_MSB_REG, pidBuf, sizeof(pidBuf));
-  return this->concat_bytes(pidBuf[0], pidBuf[1]);
+  return concat_bytes(pidBuf[0], pidBuf[1]);
 }
 
 uint16_t DFRobot_i2c_RGBButton::concat_bytes(uint8_t msb, uint8_t lsb) {
