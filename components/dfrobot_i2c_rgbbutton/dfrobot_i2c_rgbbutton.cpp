@@ -148,14 +148,14 @@ bool DFRobot_i2c_RGBButton::begin(void) {
     return false;
   }
 
-  if(RGBBUTTON_PART_ID != this->RGBBUTTON_CONCAT_BYTES(idBuf[0], idBuf[1])) {   // Judge whether the chip version matches
+  if(RGBBUTTON_PART_ID != this->concat_bytes(idBuf[0], idBuf[1])) {   // Judge whether the chip version matches
     return false;
   }
 
   return true;
 }
 
-uint8_t DFRobot_i2c_RGBButton::getI2CAddr(void) {
+uint8_t DFRobot_i2c_RGBButton::get_i2c_address(void) {
   uint8_t temp, i2cAddr;
   temp = this->deviceAddr_;
   deviceAddr_ = 0;   // Common access address of I2C protocol
@@ -164,10 +164,15 @@ uint8_t DFRobot_i2c_RGBButton::getI2CAddr(void) {
   return i2cAddr;
 }
 
-uint16_t DFRobot_i2c_RGBButton::getPID(void) {
+uint16_t DFRobot_i2c_RGBButton::get_pid(void) {
   uint8_t pidBuf[2];
   this->read_register(RGBBUTTON_PID_MSB_REG, pidBuf, sizeof(pidBuf));
-  return this->RGBBUTTON_CONCAT_BYTES(pidBuf[0], pidBuf[1]);
+  uint16_t concat_bytes = (((uint16_t)pidBuf[0] << 8) | (uint16_t)pidBuf[1])
+  return this->concat_bytes(pidBuf[0], pidBuf[1]);
+}
+
+uint16_t DFRobot_i2c_RGBButton::concat_bytes(uint8_t msb, uint8_t lsb) {
+  return (((uint16_t)msb << 8) | (uint16_t)lsb);
 }
 
 }  // namespace dfrobot_i2c_rgbbutton
