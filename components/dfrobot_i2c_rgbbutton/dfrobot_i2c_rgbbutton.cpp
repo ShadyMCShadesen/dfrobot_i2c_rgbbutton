@@ -37,7 +37,7 @@ void DFRobot_i2c_RGBButton::setup() { // triggers at startup
   }
 
   this->set_button_color(this->default_color_); // set default button color
-  ESP_LOGI(TAG, "Device connected successfully!");
+  ESP_LOGI(TAG, "Device with address %d connected successfully!", this->address_);
 }
 
 void DFRobot_i2c_RGBButton::loop() { } // triggers every clock cycle
@@ -59,7 +59,9 @@ void DFRobot_i2c_RGBButton::set_button_color(uint8_t r, uint8_t g, uint8_t b) { 
 
   // set color and store the rgb values
   this->write_register(RGBBUTTON_RED_REG, rgbBuf, 3);
-  this->button_color_ = rgbBuf;
+  this->button_color_[0] = rgbBuf[0];
+  this->button_color_[1] = rgbBuf[1];
+  this->button_color_[2] = rgbBuf[2];
 
   ESP_LOGD(TAG, "New color set:");
   ESP_LOGD(TAG, "R: %d; G: %d, B:%d", this->button_color_[0], this->button_color_[1], this->button_color_[2]);
@@ -79,7 +81,9 @@ void DFRobot_i2c_RGBButton::set_button_color(unsigned long color) {
 
   // set color and store the rgb values
   this->write_register(RGBBUTTON_RED_REG, rgbBuf, 3);
-  this->button_color_ = rgbBuf;
+  this->button_color_[0] = rgbBuf[0];
+  this->button_color_[1] = rgbBuf[1];
+  this->button_color_[2] = rgbBuf[2];
 
   ESP_LOGD(TAG, "New color set:");
   ESP_LOGD(TAG, "R: %d; G: %d, B:%d", this->button_color_[0], this->button_color_[1], this->button_color_[2]);
@@ -99,7 +103,9 @@ void DFRobot_i2c_RGBButton::set_button_color(DFRobot_RGBButton::eGeneralRGBValue
 
   // set color and store the rgb values
   this->write_register(RGBBUTTON_RED_REG, rgbBuf, 3);
-  this->button_color_ = rgbBuf;
+  this->button_color_[0] = rgbBuf[0];
+  this->button_color_[1] = rgbBuf[1];
+  this->button_color_[2] = rgbBuf[2];
 
   ESP_LOGD(TAG, "New color set:");
   ESP_LOGD(TAG, "R: %d; G: %d, B:%d", this->button_color_[0], this->button_color_[1], this->button_color_[2]);
