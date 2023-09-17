@@ -43,7 +43,7 @@ external_components:
   - source:
       type: git
       url: https://github.com/ShadyMCShadesen/dfrobot_i2c_rgbbutton
-    components: [ dfrobot_i2c_rgbbutton ]
+    components: [ dfrobot_i2c_rgbbutton_esp32 ] # choose between 'dfrobot_i2c_rgbbutton_esp32' and 'dfrobot_i2c_rgbbutton_esp8266'
 
 # Import original library for the DFRobot_RGBButton from github
 esphome:
