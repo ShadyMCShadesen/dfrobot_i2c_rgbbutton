@@ -34,7 +34,7 @@ void DFRobot_i2c_RGBButton::setup() { // triggers at startup
     return;
   }
 
-  uint16_t productID = this->getPID();
+  uint16_t productID = this->get_pid();
   ESP_LOGI(TAG, "Device with address %d connected successfully!", this->address_);
   ESP_LOGI(TAG, "Product ID: %d", productID);
 
