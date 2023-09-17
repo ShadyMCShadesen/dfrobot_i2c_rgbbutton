@@ -1,5 +1,7 @@
 #include "esphome/core/log.h"
 
+#include "dfrobot_i2c_rgbbutton.h"
+
 namespace esphome {
 namespace dfrobot_i2c_rgbbutton {
 
@@ -19,6 +21,8 @@ static const uint8_t RGBBUTTON_BUTTON_SIGNAL_REG = 0x04;
 
 static const uint8_t RGBBUTTON_PID_MSB_REG = 0x09;
 static const uint8_t RGBBUTTON_PID_LSB_REG = 0x0A;
+
+#define RGBBUTTON_CONCAT_BYTES(msb, lsb)   (((uint16_t)msb << 8) | (uint16_t)lsb)   ///< Macro combines two 8-bit data into one 16-bit data
 
 float DFRobot_i2c_RGBButton::get_setup_priority() const { return setup_priority::IO; } // for ESPHome
 
