@@ -107,11 +107,9 @@ bool DFRobot_i2c_RGBButton::get_button_state() { // get button state
       if (this->button_state_) { // button pressed
         ESP_LOGD(TAG, "Button pressed!");
         this->button_sensor_->publish_state(this->button_state_);
-        this->on_press_callback_.call();
       } else { // button released
         ESP_LOGD(TAG, "Button released!");
         this->button_sensor_->publish_state(this->button_state_);
-        this->on_release_callback_.call();
       }
     }
   }
