@@ -47,10 +47,11 @@ external_components:
 
 # Setup i2c bus
 i2c:    
-  - id: bus_a # if your device is connected to the first i2c bus (or only one bus exists), 'secondary_bus' needs to be false
+  - id: bus_a
     sda: GPIO21
     scl: GPIO22
 
+# Setup DFRobot I2c RGBButton
 dfrobot_i2c_rgbbutton:
   - id: i2c_rgbbutton
     address: 0x23
