@@ -43,26 +43,18 @@ external_components:
   - source:
       type: git
       url: https://github.com/ShadyMCShadesen/dfrobot_i2c_rgbbutton
-    components: [ dfrobot_i2c_rgbbutton_esp32 ] # choose between 'dfrobot_i2c_rgbbutton_esp32' and 'dfrobot_i2c_rgbbutton_esp8266'
-
-# Import original library for the DFRobot_RGBButton from github
-esphome:
-  libraries:
-    - "https://github.com/DFRobot/DFRobot_RGBButton"
+    components: [ dfrobot_i2c_rgbbutton ]
 
 # Setup i2c bus
 i2c:    
   - id: bus_a # if your device is connected to the first i2c bus (or only one bus exists), 'secondary_bus' needs to be false
     sda: GPIO21
     scl: GPIO22
-  - id: bus_b # if your device is connected to a secondary i2c bus, 'secondary_bus' needs to be true
-    sda: GPIO16
-    scl: GPIO17
 
 dfrobot_i2c_rgbbutton:
   - id: i2c_rgbbutton
     address: 0x23
-    secondary_bus: false
+    i2c_id: bus_a
     default_color: 0xFFFFFF
     update_interval: 1s
     button: # binary_sensor configuration, see https://esphome.io/components/binary_sensor/index.html
@@ -78,6 +70,8 @@ dfrobot_i2c_rgbbutton:
 # Optional parameters
 
 `address:` i2c address of the button module, default 0x23
+
+`i2c_id:` i2c bus of the button module, default first of configured busses
 
 `secondary_bus:` true if the button is connected on a secondary i2c bus, default false
 
