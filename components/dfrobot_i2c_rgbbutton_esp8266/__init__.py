@@ -35,7 +35,7 @@ async def to_code(config):
 
     if CONF_DEFAULT_COLOR in config:
         cg.add(var.set_color(config[CONF_DEFAULT_COLOR]))
-    if (CONF_ADDRESS in config)):
+    if (CONF_ADDRESS in config):
         cg.add(var.set_button_address(config[CONF_ADDRESS]))
 
     if CONF_BUTTON in config:
