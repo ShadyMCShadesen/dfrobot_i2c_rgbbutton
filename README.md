@@ -14,20 +14,24 @@ set_button_color(uint8_t r, uint8_t g, uint8_t b)
 ```
 to set the color of the button (r, g, b; for example `(0, 0, 0)` for black/off)
 
+
 ```yaml
 set_button_color(long color)
 ```
 to set the color of the button (hex; for example `(0xFFFFFF)` for white)
+
 
 ```yaml
 get_button_color_rgb()
 ```
 to get the color of the button (uint8_t[3]; for example `{255, 255, 255}` for white)
 
+
 ```yaml
 get_button_color_hex()
 ```
 to get the color of the button (unsigned long; for example `0xFFFFFF` for white)
+
 
 ```yaml
 get_button_state()
