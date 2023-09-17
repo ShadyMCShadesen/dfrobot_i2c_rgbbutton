@@ -43,7 +43,6 @@ external_components:
   - source:
       type: git
       url: https://github.com/ShadyMCShadesen/dfrobot_i2c_rgbbutton
-      ref: main
     components: [ dfrobot_i2c_rgbbutton ]
 
 # Import original library for the DFRobot_RGBButton from github
