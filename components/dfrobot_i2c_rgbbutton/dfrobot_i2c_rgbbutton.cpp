@@ -167,7 +167,6 @@ uint8_t DFRobot_i2c_RGBButton::get_i2c_address(void) {
 uint16_t DFRobot_i2c_RGBButton::get_pid(void) {
   uint8_t pidBuf[2];
   this->read_register(RGBBUTTON_PID_MSB_REG, pidBuf, sizeof(pidBuf));
-  uint16_t concat_bytes = (((uint16_t)pidBuf[0] << 8) | (uint16_t)pidBuf[1])
   return this->concat_bytes(pidBuf[0], pidBuf[1]);
 }
 
