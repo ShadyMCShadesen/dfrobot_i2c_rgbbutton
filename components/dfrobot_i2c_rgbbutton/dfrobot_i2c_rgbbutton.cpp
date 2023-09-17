@@ -1,7 +1,5 @@
 #include "esphome/core/log.h"
 
-#include "dfrobot_i2c_rgbbutton.h"
-
 namespace esphome {
 namespace dfrobot_i2c_rgbbutton {
 
