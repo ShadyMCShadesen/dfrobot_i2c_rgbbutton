@@ -36,8 +36,6 @@ class DFRobot_i2c_RGBButton : public PollingComponent {
  protected:
   DFRobot_RGBButton button_;
 
-  CallbackManager<void()> on_press_callback_;
-  CallbackManager<void()> on_release_callback_;
   binary_sensor::BinarySensor* button_sensor_{nullptr};
 
   uint8_t address_ {0x23};
