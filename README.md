@@ -55,7 +55,7 @@ i2c:
     sda: GPIO21
     scl: GPIO22
 
-# Setup DFRobot I2c RGBButton
+# Setup DFRobot I2C RGBButton
 dfrobot_i2c_rgbbutton:
   - id: i2c_rgbbutton
     address: 0x23

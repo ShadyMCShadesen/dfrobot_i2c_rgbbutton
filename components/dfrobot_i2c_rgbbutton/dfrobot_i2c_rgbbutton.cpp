@@ -7,7 +7,6 @@ namespace dfrobot_i2c_rgbbutton {
 
 static const char *TAG = "dfrobot_i2c_rgbbutton";
 
-static const uint8_t RGBBUTTON_DEFAULT_I2C_ADDR = 0x2A;
 static const uint16_t RGBBUTTON_PART_ID = 0x43DF;
 
 /* RGBButton register address */
@@ -20,7 +19,6 @@ static const uint8_t RGBBUTTON_BLUE_REG = 0x03;
 static const uint8_t RGBBUTTON_BUTTON_SIGNAL_REG = 0x04;
 
 static const uint8_t RGBBUTTON_PID_MSB_REG = 0x09;
-static const uint8_t RGBBUTTON_PID_LSB_REG = 0x0A;
 
 float DFRobot_i2c_RGBButton::get_setup_priority() const { return setup_priority::IO; } // for ESPHome
 
