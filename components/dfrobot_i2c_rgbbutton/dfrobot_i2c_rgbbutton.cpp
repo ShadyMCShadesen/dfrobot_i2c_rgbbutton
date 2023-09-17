@@ -20,8 +20,6 @@ static const uint8_t RGBBUTTON_BUTTON_SIGNAL_REG = 0x04;
 static const uint8_t RGBBUTTON_PID_MSB_REG = 0x09;
 static const uint8_t RGBBUTTON_PID_LSB_REG = 0x0A;
 
-#define RGBBUTTON_CONCAT_BYTES(msb, lsb)   (((uint16_t)msb << 8) | (uint16_t)lsb)   ///< Macro combines two 8-bit data into one 16-bit data
-
 float DFRobot_i2c_RGBButton::get_setup_priority() const { return setup_priority::IO; } // for ESPHome
 
 void DFRobot_i2c_RGBButton::setup() { // triggers at startup
@@ -148,7 +146,7 @@ bool DFRobot_i2c_RGBButton::begin(void) {
     return false;
   }
 
-  if(RGBBUTTON_PART_ID != RGBBUTTON_CONCAT_BYTES(idBuf[0], idBuf[1])) {   // Judge whether the chip version matches
+  if(RGBBUTTON_PART_ID != this->RGBBUTTON_CONCAT_BYTES(idBuf[0], idBuf[1])) {   // Judge whether the chip version matches
     return false;
   }
 
@@ -167,7 +165,7 @@ uint8_t DFRobot_i2c_RGBButton::getI2CAddr(void) {
 uint16_t DFRobot_i2c_RGBButton::getPID(void) {
   uint8_t pidBuf[2];
   this->read_register(RGBBUTTON_PID_MSB_REG, pidBuf, sizeof(pidBuf));
-  return RGBBUTTON_CONCAT_BYTES(pidBuf[0], pidBuf[1]);
+  return this->RGBBUTTON_CONCAT_BYTES(pidBuf[0], pidBuf[1]);
 }
 
 }  // namespace dfrobot_i2c_rgbbutton

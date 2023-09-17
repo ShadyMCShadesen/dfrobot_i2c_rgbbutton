@@ -4,6 +4,8 @@
 #include "esphome/components/i2c/i2c.h"
 #include "esphome/components/binary_sensor/binary_sensor.h"
 
+#define RGBBUTTON_CONCAT_BYTES(msb, lsb)   (((uint16_t)msb << 8) | (uint16_t)lsb)   ///< Macro combines two 8-bit data into one 16-bit data
+
 namespace esphome {
 namespace dfrobot_i2c_rgbbutton {
 
