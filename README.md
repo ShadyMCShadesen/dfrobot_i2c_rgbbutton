@@ -1,5 +1,5 @@
 # dfrobot_i2c_rgbbutton (Work in progress)
-ESPHome external component for the [DFRobot I2C RGBButton](https://wiki.dfrobot.com/SKU_DFR0991_Gravity_I2C_RGB_LED_Button_Module).
+External component for ESPHome supporting the [DFRobot I2C RGB Button](https://wiki.dfrobot.com/SKU_DFR0991_Gravity_I2C_RGB_LED_Button_Module).
 
 # !! Currently not tested !!
 
