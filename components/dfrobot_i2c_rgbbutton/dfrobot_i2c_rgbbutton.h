@@ -7,6 +7,8 @@
 namespace esphome {
 namespace dfrobot_i2c_rgbbutton {
 
+#define RGBBUTTON_CONCAT_BYTES(msb, lsb)   (((uint16_t)msb << 8) | (uint16_t)lsb)   ///< Macro combines two 8-bit data into one 16-bit data
+
 class DFRobot_i2c_RGBButton : public i2c::I2CDevice, public PollingComponent {
  public:
   /**
