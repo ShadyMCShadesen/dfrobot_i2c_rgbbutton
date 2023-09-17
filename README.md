@@ -73,8 +73,6 @@ dfrobot_i2c_rgbbutton:
 
 `i2c_id:` i2c bus of the button module, default first of configured busses
 
-`secondary_bus:` true if the button is connected on a secondary i2c bus, default false
-
 `default_color:` default color of the button, default 0xFFFFFF (white)
 
 `update_interval:` interval for the state update of the button, default 1s

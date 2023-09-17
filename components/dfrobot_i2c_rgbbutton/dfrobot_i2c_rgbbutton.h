@@ -4,8 +4,6 @@
 #include "esphome/components/i2c/i2c.h"
 #include "esphome/components/binary_sensor/binary_sensor.h"
 
-#include "DFRobot_RGBButton.h" // https://github.com/DFRobot/DFRobot_RGBButton
-
 namespace esphome {
 namespace dfrobot_i2c_rgbbutton {
 
