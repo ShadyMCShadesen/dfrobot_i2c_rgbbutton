@@ -89,7 +89,7 @@ void DFRobot_i2c_RGBButton::set_button_color(unsigned long color) {
   ESP_LOGD(TAG, "R: %d; G: %d, B:%d", this->button_color_[0], this->button_color_[1], this->button_color_[2]);
 }
 
-void DFRobot_i2c_RGBButton::set_button_color(DFRobot_RGBButton::eGeneralRGBValue_t color) {
+void DFRobot_i2c_RGBButton::set_button_color(DFRobot_i2c_RGBButton::eGeneralRGBValue_t color) {
   // convert hex to RGB
   uint8_t rgbBuf[3];
   rgbBuf[0] = (color >> 16) & 0xFF;
