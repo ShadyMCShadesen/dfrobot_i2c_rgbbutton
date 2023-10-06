@@ -1,4 +1,5 @@
 #include "esphome/core/log.h"
+#include "esphome/core/helpers.h"
 
 #include "dfrobot_i2c_rgbbutton.h"
 
@@ -140,20 +141,21 @@ bool DFRobot_i2c_RGBButton::get_button_state() { // get button state
   return this->button_state_;
 }
 
-bool DFRobot_i2c_RGBButton::begin(void) {
+bool DFRobot_i2c_RGBButton::begin() {
   uint8_t idBuf[2];
   if(i2c::ERROR_OK != this->read_register(RGBBUTTON_PID_MSB_REG, idBuf, sizeof(idBuf))) {   // judge whether the data bus is successful
     return false;
   }
 
   if(RGBBUTTON_PART_ID != concat_bytes(idBuf[0], idBuf[1])) {   // judge whether the chip version matches
+    ESP_LOGD(TAG + "-" + std::to_string(this->address_), "Chip Version does not match!");
     return false;
   }
 
   return true;
 }
 
-uint8_t DFRobot_i2c_RGBButton::get_i2c_address(void) {
+uint8_t DFRobot_i2c_RGBButton::get_i2c_address() {
   uint8_t temp, i2cAddr;
   temp = this->deviceAddr_;
   deviceAddr_ = 0;   // common access address of I2C protocol
@@ -162,7 +164,7 @@ uint8_t DFRobot_i2c_RGBButton::get_i2c_address(void) {
   return i2cAddr;
 }
 
-uint16_t DFRobot_i2c_RGBButton::get_pid(void) {
+uint16_t DFRobot_i2c_RGBButton::get_pid() {
   uint8_t pidBuf[2];
   this->read_register(RGBBUTTON_PID_MSB_REG, pidBuf, sizeof(pidBuf));
   return concat_bytes(pidBuf[0], pidBuf[1]);

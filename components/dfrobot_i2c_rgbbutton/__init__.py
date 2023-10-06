@@ -1,4 +1,4 @@
-CODEOWNERS = ["@shadymcshadesen"]
+CODEOWNERS = ["@ShadyMCShadesen"]
 
 import esphome.codegen as cg
 import esphome.config_validation as cv
@@ -7,13 +7,9 @@ from esphome.const import (
     CONF_ID
 )
 
-from esphome import automation
-
-MULTI_CONF = True
-
-AUTO_LOAD = [ "binary_sensor" ]
-
 DEPENDENCIES = ['i2c']
+AUTO_LOAD = [ "binary_sensor" ]
+MULTI_CONF = True
 
 dfrobot_i2c_button_ns = cg.esphome_ns.namespace('dfrobot_i2c_rgbbutton')
 DFRobot_i2c_RGBButton = dfrobot_i2c_button_ns.class_('DFRobot_i2c_RGBButton', i2c.I2CDevice, cg.PollingComponent)

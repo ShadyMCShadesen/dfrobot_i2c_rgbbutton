@@ -49,9 +49,9 @@ class DFRobot_i2c_RGBButton : public i2c::I2CDevice, public PollingComponent {
   bool get_button_state();
 
  protected:
-  bool begin(void);
-  uint8_t get_i2c_address(void);
-  uint16_t get_pid(void);
+  bool begin();
+  uint8_t get_i2c_address();
+  uint16_t get_pid();
   uint16_t concat_bytes(uint8_t msb, uint8_t lsb);
 
   binary_sensor::BinarySensor* button_sensor_{nullptr};
