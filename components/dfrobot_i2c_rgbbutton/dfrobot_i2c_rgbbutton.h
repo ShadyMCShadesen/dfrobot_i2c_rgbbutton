@@ -30,7 +30,7 @@ class DFRobot_i2c_RGBButton : public i2c::I2CDevice, public PollingComponent {
   void loop() override;
   void update() override;
 
-  void set_color(uint32_t color) { this->default_color_ = color; }
+  void set_default_color(uint32_t color) { this->default_color_ = color; }
 
   float get_setup_priority() const override;
 
@@ -39,9 +39,9 @@ class DFRobot_i2c_RGBButton : public i2c::I2CDevice, public PollingComponent {
   }
 
   // Set button color
-  void set_button_color(uint8_t r, uint8_t g, uint8_t b);
-  void set_button_color(unsigned long color);
-  void set_button_color(eGeneralRGBValue_t color);
+  void set_button_color(uint8_t r, uint8_t g, uint8_t b, bool force = false);
+  void set_button_color(unsigned long color, bool force = false);
+  void set_button_color(eGeneralRGBValue_t color, bool force = false);
   // Get button color
   uint8_t* get_button_color_rgb();
   unsigned long get_button_color_hex();
@@ -56,7 +56,7 @@ class DFRobot_i2c_RGBButton : public i2c::I2CDevice, public PollingComponent {
 
   binary_sensor::BinarySensor* button_sensor_{nullptr};
 
-  uint8_t button_color_[3] {255, 255, 255};
+  uint8_t button_color_[3] {0, 0, 0};
   bool button_state_ {false};   // current state
   long default_color_ {0xFFFFFF}; // default color
 
