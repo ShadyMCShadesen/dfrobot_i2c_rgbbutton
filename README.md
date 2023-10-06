@@ -1,13 +1,13 @@
-# dfrobot_i2c_rgbbutton
+## dfrobot_i2c_rgbbutton
 External component for ESPHome supporting the [DFRobot I2C RGB Button](https://wiki.dfrobot.com/SKU_DFR0991_Gravity_I2C_RGB_LED_Button_Module).
 
-# Compatibility
+## Compatibility
 
 I have tested the code on ESP32, it works fine.
 
-# Functionality
+## Functionality
 
-You can interact with the button via functions:
+# You can interact with the button via functions:
 
 `set_button_color(uint8_t r, uint8_t g, uint8_t b, bool force = false)`
 to set the color of the button (r, g, b; for example `(0, 0, 0)` for black/off)
@@ -31,18 +31,21 @@ eBlack  = 0x000000,   /**< Black (for turning off LED) */
 for example: `id({button_id}).set_button_color({button_id}->eRed);`
 
 
+
 `get_button_color_rgb()`
 to get the color of the button (uint8_t[3]; for example `{255, 255, 255}` for white)
+
 
 
 `get_button_color_hex()`
 to get the color of the button (unsigned long; for example `0xFFFFFF` for white)
 
 
+
 `get_button_state()`
 to get the current state of the button (boolean; for example `true` if pressed)
 
-# YAML
+## YAML
 
 Example:
 ```yaml
@@ -76,7 +79,7 @@ dfrobot_i2c_rgbbutton:
           - lambda: id(i2c_rgbbutton).set_button_color(i2c_rgbbutton->eBlack);
 ```
 
-# Optional parameters
+## Optional parameters
 
 `address:` i2c address of the button module, default 0x23
 
