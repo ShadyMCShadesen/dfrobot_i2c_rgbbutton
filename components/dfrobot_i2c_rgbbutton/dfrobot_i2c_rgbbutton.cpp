@@ -46,7 +46,7 @@ void DFRobot_i2c_RGBButton::update() { // triggers on update_interval
   get_button_state(); // get button state
 }
 
-void DFRobot_i2c_RGBButton::set_button_color(uint8_t r, uint8_t g, uint8_t b, bool force = false) { // set button color via r, g, b values
+void DFRobot_i2c_RGBButton::set_button_color(uint8_t r, uint8_t g, uint8_t b, bool force) { // set button color via r, g, b values
   uint8_t rgbBuf[3];
   rgbBuf[0] = r;
   rgbBuf[1] = g;
@@ -67,7 +67,7 @@ void DFRobot_i2c_RGBButton::set_button_color(uint8_t r, uint8_t g, uint8_t b, bo
   ESP_LOGD(TAG, "  R: %d; G: %d, B: %d", this->button_color_[0], this->button_color_[1], this->button_color_[2]);
 }
 
-void DFRobot_i2c_RGBButton::set_button_color(unsigned long color, bool force = false) {
+void DFRobot_i2c_RGBButton::set_button_color(unsigned long color, bool force) {
   // convert hex to RGB
   uint8_t rgbBuf[3];
   rgbBuf[0] = (color >> 16) & 0xFF;
@@ -89,7 +89,7 @@ void DFRobot_i2c_RGBButton::set_button_color(unsigned long color, bool force = f
   ESP_LOGD(TAG, "  R: %d; G: %d, B: %d", this->button_color_[0], this->button_color_[1], this->button_color_[2]);
 }
 
-void DFRobot_i2c_RGBButton::set_button_color(DFRobot_i2c_RGBButton::eGeneralRGBValue_t color, bool force = false) {
+void DFRobot_i2c_RGBButton::set_button_color(DFRobot_i2c_RGBButton::eGeneralRGBValue_t color, bool force) {
   // convert hex to RGB
   uint8_t rgbBuf[3];
   rgbBuf[0] = (color >> 16) & 0xFF;
