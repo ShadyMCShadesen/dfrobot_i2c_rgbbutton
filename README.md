@@ -12,7 +12,6 @@ I have tested the code on ESP32, it works fine.
 `set_button_color(uint8_t r, uint8_t g, uint8_t b, bool force = false)`
 to set the color of the button (r, g, b; for example `(0, 0, 0)` for black/off)
 
-
 `set_button_color(long color, bool force = false)`
 to set the color of the button (hex; for example `(0xFFFFFF)` for white)
 
@@ -30,20 +29,19 @@ eBlack  = 0x000000,   /**< Black (for turning off LED) */
 ```
 for example: `id({button_id}).set_button_color({button_id}->eRed);`
 
-
-
 `get_button_color_rgb()`
 to get the color of the button (uint8_t[3]; for example `{255, 255, 255}` for white)
-
-
 
 `get_button_color_hex()`
 to get the color of the button (unsigned long; for example `0xFFFFFF` for white)
 
-
-
 `get_button_state()`
 to get the current state of the button (boolean; for example `true` if pressed)
+
+## Button state update:
+
+The current state of the button is updated in the `update_interval` cycle. For better detection, I recommend a short interval.
+If the `button` option is not configured, `update_interval` can be set to 0s.
 
 # YAML
 
