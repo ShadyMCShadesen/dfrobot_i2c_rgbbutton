@@ -15,7 +15,7 @@ to set the color of the button (r, g, b; for example `(0, 0, 0)` for black/off)
 `set_button_color(long color, bool force = false)`
 to set the color of the button (hex; for example `(0xFFFFFF)` for white)
 
-Alternatively, hardcoded color variables can also be used:
+Alternatively, hardcoded color variables can also be used, for example: `id({button_id}).set_button_color({button_id}->eRed);`
 ```cpp
 eRed    = 0xFF0000,   /**< Red */
 eOrange = 0xFF7F00,   /**< Orange */
@@ -27,7 +27,6 @@ ePurple = 0x8B00FF,   /**< Purple */
 eWhite  = 0xFFFFFF,   /**< White (for turning on LED) */
 eBlack  = 0x000000,   /**< Black (for turning off LED) */
 ```
-for example: `id({button_id}).set_button_color({button_id}->eRed);`
 
 `get_button_color_rgb()`
 to get the color of the button (uint8_t[3]; for example `{255, 255, 255}` for white)
