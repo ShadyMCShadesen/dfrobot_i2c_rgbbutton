@@ -15,7 +15,7 @@ to set the color of the button (r, g, b; for example `(0, 0, 0)` for black/off)
 `set_button_color(long color, bool force = false)`
 to set the color of the button (hex; for example `(0xFFFFFF)` for white)
 
-Alternatively, hardcoded color variables can also be used, for example: `id({button_id}).set_button_color({button_id}->eRed);`
+Alternatively, hardcoded color variables can also be used, for example: `id({entity_id}).set_button_color({entity_id}->eRed);`
 ```cpp
 eRed    = 0xFF0000,   /**< Red */
 eOrange = 0xFF7F00,   /**< Orange */
