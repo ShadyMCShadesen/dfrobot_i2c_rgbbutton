@@ -68,6 +68,7 @@ dfrobot_i2c_rgbbutton:
     update_interval: 1s
     button: # binary_sensor configuration, see https://esphome.io/components/binary_sensor/index.html
       id: i2c_rgbbutton_sensor
+      name: I2C RGB Button # necessary if you want Home Assistant to monitor the entity, otherwise it will not be visible 
       on_press: # set button color to red while pressed
         then:
           - lambda: id(i2c_rgbbutton).set_button_color(0xFF0000);
