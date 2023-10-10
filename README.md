@@ -85,7 +85,7 @@ dfrobot_i2c_rgbbutton:
 
 `default_color:` default color of the button, *default 0x000000 (black / off)*
 
-`update_interval:` interval for the state update of the button, *default 1s* (for better button state detection, I recommend a shorter interval; can be set to 0s if `button` is not configured)
+`update_interval:` interval for the state update of the button, *default 1s (for better button state detection, I recommend a shorter interval; can be set to 0s if `button` is not configured)*
 
 `button:` binary_sensor configuration representing the button state [ESPHome](https://esphome.io/components/binary_sensor/index.html)
 
