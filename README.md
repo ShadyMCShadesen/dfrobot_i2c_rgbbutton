@@ -87,3 +87,4 @@ dfrobot_i2c_rgbbutton:
 `update_interval:` interval for the state update of the button, default 1s (for better button state detection, I recommend a shorter interval; can be set to 0s if `button` is not configured)
 
 `button:` binary_sensor configuration representing the button state [ESPHome](https://esphome.io/components/binary_sensor/index.html)
+*For me it is necessary to give the 'name' parameter to the 'button' configuration so that it appears in Home Assistant as entity!*
