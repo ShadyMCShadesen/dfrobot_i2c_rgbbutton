@@ -88,4 +88,4 @@ dfrobot_i2c_rgbbutton:
 
 `button:` binary_sensor configuration representing the button state [ESPHome](https://esphome.io/components/binary_sensor/index.html)
 
-*For me it is necessary to give the 'name' parameter to the 'button' configuration so that it appears in Home Assistant as entity!*
+*For me it is necessary to set the 'name' parameter in the 'button' configuration so that it appears in Home Assistant as entity!*
