@@ -13,8 +13,7 @@ class DFRobot_i2c_RGBButton : public i2c::I2CDevice, public PollingComponent {
   * @enum  eGeneralRGBValue_t
   * @brief  RGB values for general seven colors and white & black
   */
-  typedef enum
-  {
+  enum class eGeneralRGBValue_t : uint32_t {
    eRed    = 0xFF0000,   /**< Red */
    eOrange = 0xFF7F00,   /**< Orange */
    eYellow = 0xFFFF00,   /**< Yellow */
@@ -24,7 +23,7 @@ class DFRobot_i2c_RGBButton : public i2c::I2CDevice, public PollingComponent {
    ePurple = 0x8B00FF,   /**< Purple */
    eWhite  = 0xFFFFFF,   /**< White (for turning on LED) */
    eBlack  = 0x000000,   /**< Black (for turning off LED) */
-  }eGeneralRGBValue_t;
+  };
 
   void setup() override;
   void loop() override;
