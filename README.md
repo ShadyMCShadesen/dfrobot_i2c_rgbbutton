@@ -15,17 +15,19 @@ to set the color of the button *(r, g, b; for example `(0, 0, 0)` for black/off)
 `set_button_color(long color, bool force = false)`
 to set the color of the button *(hex; for example `(0xFFFFFF)` for white)*
 
-Alternatively, hardcoded color variables can also be used, for example: `id({entity_id}).set_button_color({entity_id}->eRed);`
+Alternatively, hardcoded color variables can also be used, for example: `id({entity_id}).set_button_color({entity_id}->eGeneralRGBValue_t::eRed);`
 ```cpp
-eRed    = 0xFF0000,   /**< Red */
-eOrange = 0xFF7F00,   /**< Orange */
-eYellow = 0xFFFF00,   /**< Yellow */
-eGreen  = 0x00FF00,   /**< Green */
-eCyan   = 0x00FFFF,   /**< Indigo */
-eBlue   = 0x0000FF,   /**< Blue */
-ePurple = 0x8B00FF,   /**< Purple */
-eWhite  = 0xFFFFFF,   /**< White (for turning on LED) */
-eBlack  = 0x000000,   /**< Black (for turning off LED) */
+enum class eGeneralRGBValue_t : uint32_t {
+  eRed    = 0xFF0000,   /**< Red */
+  eOrange = 0xFF7F00,   /**< Orange */
+  eYellow = 0xFFFF00,   /**< Yellow */
+  eGreen  = 0x00FF00,   /**< Green */
+  eCyan   = 0x00FFFF,   /**< Indigo */
+  eBlue   = 0x0000FF,   /**< Blue */
+  ePurple = 0x8B00FF,   /**< Purple */
+  eWhite  = 0xFFFFFF,   /**< White (for turning on LED) */
+  eBlack  = 0x000000,   /**< Black (for turning off LED) */
+};
 ```
 
 `get_button_color_rgb()`
@@ -74,7 +76,7 @@ dfrobot_i2c_rgbbutton:
           - lambda: id(i2c_rgbbutton).set_button_color(0xFF0000);
       on_release: # set button color back to 'off' if released
         then:
-          - lambda: id(i2c_rgbbutton).set_button_color(i2c_rgbbutton->eBlack);
+          - lambda: id(i2c_rgbbutton).set_button_color(i2c_rgbbutton->eGeneralRGBValue_t::eBlack);
 ```
 
 # Optional parameters
