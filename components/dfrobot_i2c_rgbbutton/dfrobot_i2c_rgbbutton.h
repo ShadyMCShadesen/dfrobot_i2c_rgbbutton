@@ -40,7 +40,7 @@ class DFRobot_i2c_RGBButton : public i2c::I2CDevice, public PollingComponent {
 
   // Set button color
   void set_button_color(uint8_t r, uint8_t g, uint8_t b, bool force = false);
-  void set_button_color(long unsigned int color, bool force = false);
+  void set_button_color(unsigned long color, bool force = false);
   void set_button_color(eGeneralRGBValue_t color, bool force = false);
   // Get button color
   uint8_t* get_button_color_rgb();
