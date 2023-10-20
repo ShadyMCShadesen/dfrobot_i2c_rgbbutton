@@ -56,7 +56,6 @@ class DFRobot_i2c_RGBButton : public i2c::I2CDevice, public PollingComponent {
  private:
   uint8_t deviceAddr_;
   binary_sensor::BinarySensor* button_sensor_{nullptr};
-
   uint8_t button_color_[3] {0, 0, 0};
   bool button_state_ {false};   // current state
   long default_color_ {0xFFFFFF}; // default color
