@@ -62,7 +62,7 @@ void DFRobot_i2c_RGBButton::set_button_color(uint8_t r, uint8_t g, uint8_t b, bo
   ESP_LOGD(TAG, "  R: %d, G: %d, B: %d", this->button_color_[0], this->button_color_[1], this->button_color_[2]);
 }
 
-void DFRobot_i2c_RGBButton::set_button_color(unsigned long color, bool force) {
+void DFRobot_i2c_RGBButton::set_button_color(long unsigned int color, bool force) {
   // convert hex to RGB
   uint8_t rgbBuf[3] = {
       (color >> 16) & 0xFF,
@@ -76,9 +76,9 @@ void DFRobot_i2c_RGBButton::set_button_color(unsigned long color, bool force) {
 void DFRobot_i2c_RGBButton::set_button_color(DFRobot_i2c_RGBButton::eGeneralRGBValue_t color, bool force) {
   // convert hex to RGB
   uint8_t rgbBuf[3] = {
-      (color >> 16) & 0xFF,
-      (color >> 8) & 0xFF,
-      color & 0xFF
+      ((uint32_t)color >> 16) & 0xFF,
+      ((uint32_t)color >> 8) & 0xFF,
+      (uint32_t)color & 0xFF
   };
 
   set_button_color(rgbBuf[0], rgbBuf[1], rgbBuf[2], force);
