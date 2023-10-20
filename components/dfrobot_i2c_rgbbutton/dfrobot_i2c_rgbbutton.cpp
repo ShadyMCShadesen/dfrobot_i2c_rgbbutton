@@ -47,21 +47,16 @@ void DFRobot_i2c_RGBButton::update() { // triggers on update_interval
 }
 
 void DFRobot_i2c_RGBButton::set_button_color(uint8_t r, uint8_t g, uint8_t b, bool force) { // set button color via r, g, b values
-  uint8_t rgbBuf[3];
-  rgbBuf[0] = r;
-  rgbBuf[1] = g;
-  rgbBuf[2] = b;
+  uint8_t rgbBuf[3] = {r, g, b};
 
-  if (!force && (rgbBuf[0] == this->button_color_[0] && rgbBuf[1] == this->button_color_[1] && rgbBuf[2] == this->button_color_[2])) { // checks if the color is already applied
+  if (!force && std::memcmp(rgbBuf, this->button_color_, 3) == 0) { // checks if the color is already applied
     ESP_LOGD(TAG, "Color hasn't changed, no changes applied.");
     return;
   }
 
   // set color and store the rgb values
   this->write_register(RGBBUTTON_RED_REG, rgbBuf, 3);
-  this->button_color_[0] = rgbBuf[0];
-  this->button_color_[1] = rgbBuf[1];
-  this->button_color_[2] = rgbBuf[2];
+  std::copy(rgbBuf, rgbBuf + 3, this->button_color_);
 
   ESP_LOGD(TAG, "New color set:");
   ESP_LOGD(TAG, "  R: %d, G: %d, B: %d", this->button_color_[0], this->button_color_[1], this->button_color_[2]);
@@ -69,50 +64,28 @@ void DFRobot_i2c_RGBButton::set_button_color(uint8_t r, uint8_t g, uint8_t b, bo
 
 void DFRobot_i2c_RGBButton::set_button_color(unsigned long color, bool force) {
   // convert hex to RGB
-  uint8_t rgbBuf[3];
-  rgbBuf[0] = (color >> 16) & 0xFF;
-  rgbBuf[1] = (color >> 8) & 0xFF;
-  rgbBuf[2] = color & 0xFF;
+  uint8_t rgbBuf[3] = {
+      (color >> 16) & 0xFF,
+      (color >> 8) & 0xFF,
+      color & 0xFF
+  };
 
-  if (!force && (rgbBuf[0] == this->button_color_[0] && rgbBuf[1] == this->button_color_[1] && rgbBuf[2] == this->button_color_[2])) { // checks if the color is already applied
-    ESP_LOGD(TAG, "Color hasn't changed, no changes applied.");
-    return;
-  }
-
-  // set color and store the rgb values
-  this->write_register(RGBBUTTON_RED_REG, rgbBuf, 3);
-  this->button_color_[0] = rgbBuf[0];
-  this->button_color_[1] = rgbBuf[1];
-  this->button_color_[2] = rgbBuf[2];
-
-  ESP_LOGD(TAG, "New color set:");
-  ESP_LOGD(TAG, "  R: %d, G: %d, B: %d", this->button_color_[0], this->button_color_[1], this->button_color_[2]);
+  set_button_color(rgbBuf[0], rgbBuf[1], rgbBuf[2], force);
 }
 
 void DFRobot_i2c_RGBButton::set_button_color(DFRobot_i2c_RGBButton::eGeneralRGBValue_t color, bool force) {
   // convert hex to RGB
-  uint8_t rgbBuf[3];
-  rgbBuf[0] = (color >> 16) & 0xFF;
-  rgbBuf[1] = (color >> 8) & 0xFF;
-  rgbBuf[2] = color & 0xFF;
+  uint8_t rgbBuf[3] = {
+      (color >> 16) & 0xFF,
+      (color >> 8) & 0xFF,
+      color & 0xFF
+  };
 
-  if (!force && (rgbBuf[0] == this->button_color_[0] && rgbBuf[1] == this->button_color_[1] && rgbBuf[2] == this->button_color_[2])) { // checks if the color is already applied
-    ESP_LOGD(TAG, "Color hasn't changed, no changes applied.");
-    return;
-  }
-
-  // set color and store the rgb values
-  this->write_register(RGBBUTTON_RED_REG, rgbBuf, 3);
-  this->button_color_[0] = rgbBuf[0];
-  this->button_color_[1] = rgbBuf[1];
-  this->button_color_[2] = rgbBuf[2];
-
-  ESP_LOGD(TAG, "New color set:");
-  ESP_LOGD(TAG, "  R: %d, G: %d, B: %d", this->button_color_[0], this->button_color_[1], this->button_color_[2]);
+  set_button_color(rgbBuf[0], rgbBuf[1], rgbBuf[2], force);
 }
 
 uint8_t* DFRobot_i2c_RGBButton::get_button_color_rgb() { // get button color as array (R, G, B)
-  Return this->button_color_;
+  return this->button_color_;
 }
 
 unsigned long DFRobot_i2c_RGBButton::get_button_color_hex() { // get button color as hex value (unsigned long)
