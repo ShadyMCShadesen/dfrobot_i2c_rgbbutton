@@ -76,9 +76,9 @@ void DFRobot_i2c_RGBButton::set_button_color(long unsigned int color, bool force
 void DFRobot_i2c_RGBButton::set_button_color(DFRobot_i2c_RGBButton::eGeneralRGBValue_t color, bool force) {
   // convert hex to RGB
   uint8_t rgbBuf[3] = {
-      ((uint32_t)color >> 16) & 0xFF,
-      ((uint32_t)color >> 8) & 0xFF,
-      (uint32_t)color & 0xFF
+      (color >> 16) & 0xFF,
+      (color >> 8) & 0xFF,
+      color & 0xFF
   };
 
   set_button_color(rgbBuf[0], rgbBuf[1], rgbBuf[2], force);
