@@ -53,14 +53,13 @@ class DFRobot_i2c_RGBButton : public i2c::I2CDevice, public PollingComponent {
   uint16_t get_pid();
   uint16_t concat_bytes(uint8_t msb, uint8_t lsb);
 
+ private:
+  uint8_t deviceAddr_;
   binary_sensor::BinarySensor* button_sensor_{nullptr};
 
   uint8_t button_color_[3] {0, 0, 0};
   bool button_state_ {false};   // current state
   long default_color_ {0xFFFFFF}; // default color
-
- private:
-  uint8_t deviceAddr_;
 };
 
 }  // namespace dfrobot_i2c_rgbbutton
