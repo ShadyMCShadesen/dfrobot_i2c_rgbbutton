@@ -112,8 +112,7 @@ void DFRobot_i2c_RGBButton::set_button_color(DFRobot_i2c_RGBButton::eGeneralRGBV
 }
 
 uint8_t* DFRobot_i2c_RGBButton::get_button_color_rgb() { // get button color as array (R, G, B)
-  static uint8_t rgb[3] = {this->button_color_[0], this->button_color_[1], this->button_color_[2]};
-  return rgb;
+  Return this->button_color_;
 }
 
 unsigned long DFRobot_i2c_RGBButton::get_button_color_hex() { // get button color as hex value (unsigned long)
