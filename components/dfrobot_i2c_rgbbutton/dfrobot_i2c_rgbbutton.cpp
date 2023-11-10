@@ -58,8 +58,8 @@ void DFRobot_i2c_RGBButton::set_button_color(uint8_t r, uint8_t g, uint8_t b, bo
   this->write_register(RGBBUTTON_RED_REG, rgbBuf, 3);
   std::copy(rgbBuf, rgbBuf + 3, this->button_color_);
 
-  ESP_LOGD(TAG, "New color set:");
-  ESP_LOGD(TAG, "  R: %d, G: %d, B: %d", this->button_color_[0], this->button_color_[1], this->button_color_[2]);
+  // ESP_LOGD(TAG, "New color set:");
+  // ESP_LOGD(TAG, "  R: %d, G: %d, B: %d", this->button_color_[0], this->button_color_[1], this->button_color_[2]);
 }
 
 void DFRobot_i2c_RGBButton::set_button_color(unsigned long color, bool force) {
