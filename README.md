@@ -4,6 +4,7 @@ External component for ESPHome supporting the [DFRobot I2C RGB Button](https://w
 # Compatibility
 
 I have tested the code on ESP32, it works fine.
+Works with both Arduino and ESP-IDF 
 
 # Functionality
 
