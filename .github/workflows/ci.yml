@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  schedule:
+    # Weekly, to notice when a new ESPHome release breaks the component
+    - cron: "17 4 * * 1"
+
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        config: [esp32-idf, esp32-ard, esp8266, legacy]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - uses: actions/cache@v4
+        with:
+          path: ~/.platformio
+          key: pio-${{ matrix.config }}-${{ hashFiles('tests/*.yaml') }}
+          restore-keys: pio-${{ matrix.config }}-
+      - run: pip install esphome
+      - run: esphome config tests/test.${{ matrix.config }}.yaml > /dev/null
+      - run: esphome compile tests/test.${{ matrix.config }}.yaml
