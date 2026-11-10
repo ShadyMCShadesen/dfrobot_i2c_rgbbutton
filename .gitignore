@@ -1,0 +1,4 @@
+.esphome/
+__pycache__/
+*.pyc
+tests/build/

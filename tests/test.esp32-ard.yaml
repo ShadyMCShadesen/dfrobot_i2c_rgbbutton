@@ -1,0 +1,17 @@
+substitutions:
+  sda_pin: GPIO21
+  scl_pin: GPIO22
+  int_pin: GPIO4
+
+esphome:
+  name: rgbbutton-test
+
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+logger:
+
+packages:
+  common: !include common.yaml

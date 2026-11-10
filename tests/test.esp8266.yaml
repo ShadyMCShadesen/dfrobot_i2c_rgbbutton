@@ -1,0 +1,15 @@
+substitutions:
+  sda_pin: GPIO4
+  scl_pin: GPIO5
+  int_pin: GPIO14
+
+esphome:
+  name: rgbbutton-test
+
+esp8266:
+  board: d1_mini
+
+logger:
+
+packages:
+  common: !include common.yaml

@@ -1,0 +1,34 @@
+# Configuration written for earlier versions (inline `button:`), must keep working.
+esphome:
+  name: rgbbutton-legacy
+
+esp8266:
+  board: d1_mini
+
+logger:
+
+external_components:
+  - source:
+      type: local
+      path: ../components
+    components: [dfrobot_i2c_rgbbutton]
+
+i2c:
+  - id: bus_a
+    sda: GPIO4
+    scl: GPIO5
+
+dfrobot_i2c_rgbbutton:
+  - id: i2c_rgbbutton
+    address: 0x23
+    i2c_id: bus_a
+    default_color: 0x000000
+    update_interval: 1s
+    button:
+      id: i2c_rgbbutton_sensor
+      on_press:
+        then:
+          - lambda: id(i2c_rgbbutton).set_button_color(0xFF0000);
+      on_release:
+        then:
+          - lambda: id(i2c_rgbbutton).set_button_color(i2c_rgbbutton->eGeneralRGBValue_t::eBlack);
