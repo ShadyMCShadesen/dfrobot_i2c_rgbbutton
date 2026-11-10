@@ -5,6 +5,7 @@ from esphome.const import CONF_GAMMA_CORRECT, CONF_ID, CONF_OUTPUT_ID
 import esphome.final_validate as fv
 
 from . import (
+    CONF_DEFAULT_COLOR,
     CONF_DFROBOT_I2C_RGBBUTTON_ID,
     DEFAULT_LIGHT_NAME,
     DFRobotI2CRGBButton,
@@ -34,9 +35,16 @@ CONFIG_SCHEMA = with_default_name(
 
 def _final_validate(config):
     hub_id = config[CONF_DFROBOT_I2C_RGBBUTTON_ID]
+    full = fv.full_config.get()
+    for hub in full.get("dfrobot_i2c_rgbbutton", []):
+        if hub["id"] == hub_id and CONF_DEFAULT_COLOR in hub:
+            raise cv.Invalid(
+                f"RGB button '{hub_id}' has a light: remove `default_color` from the hub "
+                "and use the light's `restore_mode` / `initial_state` instead"
+            )
     count = sum(
         1
-        for entry in fv.full_config.get().get("light", [])
+        for entry in full.get("light", [])
         if entry.get("platform") == "dfrobot_i2c_rgbbutton"
         and entry.get(CONF_DFROBOT_I2C_RGBBUTTON_ID) == hub_id
     )

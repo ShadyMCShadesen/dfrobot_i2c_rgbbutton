@@ -53,7 +53,7 @@ One entry per module.
 | `i2c_id` | first bus | I2C bus |
 | `update_interval` | `50ms` | How often the button is read over I2C. Short presses can be missed with long intervals. Not used with `interrupt_pin`. |
 | `interrupt_pin` | – | GPIO connected to the module's INT pin. INT is high while the button is pressed, so the state is read from the pin in every loop (no I2C polling, no missed presses). |
-| `default_color` | `off` | Color written at boot. Ignored when a `light` is configured (use the light's `restore_mode` / `initial_state` instead). |
+| `default_color` | `off` | Color written at boot. Not allowed together with a `light`; use the light's `restore_mode` / `initial_state` there. |
 | `button` | – | *Legacy:* binary sensor configured inside the hub, as in version 1. Still works; prefer the `binary_sensor` platform. |
 
 ### Address
@@ -190,8 +190,14 @@ Version 1 configurations keep working. Changes in behaviour:
 esphome compile tests/test.esp32-idf.yaml
 ```
 
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md).
+
 ## Credits and license
 
-Register map and product ID are taken from DFRobot's
+MIT License, see [LICENSE](LICENSE).
+
+Register map, product ID and predefined colors are taken from DFRobot's
 [DFRobot_RGBButton](https://github.com/DFRobot/DFRobot_RGBButton) library
-(Copyright 2010 DFRobot Co.Ltd, MIT License). See [LICENSE](LICENSE) for this component.
+(Copyright 2010 DFRobot Co.Ltd, MIT License; notice included in [LICENSE](LICENSE)).

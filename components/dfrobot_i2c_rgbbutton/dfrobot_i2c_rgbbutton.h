@@ -76,6 +76,7 @@ class DFRobotI2CRGBButton : public PollingComponent, public i2c::I2CDevice {
   bool read_product_id_(uint16_t *product_id);
   void read_button_();
   void publish_button_(bool pressed);
+  void update_status_();
   void scan_addresses_();
 
   GPIOPin *interrupt_pin_{nullptr};
@@ -91,6 +92,7 @@ class DFRobotI2CRGBButton : public PollingComponent, public i2c::I2CDevice {
   bool button_state_{false};
   bool button_state_known_{false};
   bool read_failed_{false};
+  bool write_failed_{false};
 };
 
 }  // namespace dfrobot_i2c_rgbbutton

@@ -106,7 +106,7 @@ CONFIG_SCHEMA = cv.All(
     cv.Schema(
         {
             cv.GenerateID(): cv.declare_id(DFRobotI2CRGBButton),
-            cv.Optional(CONF_DEFAULT_COLOR, default=0): color_value,
+            cv.Optional(CONF_DEFAULT_COLOR): color_value,
             cv.Optional(CONF_INTERRUPT_PIN): pins.gpio_input_pin_schema,
             # Kept for configurations of earlier versions; prefer the binary_sensor platform.
             cv.Optional(CONF_BUTTON): BUTTON_SCHEMA,
@@ -123,7 +123,8 @@ async def to_code(config):
     await cg.register_component(var, config)
     await i2c.register_i2c_device(var, config)
 
-    cg.add(var.set_default_color(config[CONF_DEFAULT_COLOR]))
+    if CONF_DEFAULT_COLOR in config:
+        cg.add(var.set_default_color(config[CONF_DEFAULT_COLOR]))
 
     if CONF_INTERRUPT_PIN in config:
         pin = await cg.gpio_pin_expression(config[CONF_INTERRUPT_PIN])

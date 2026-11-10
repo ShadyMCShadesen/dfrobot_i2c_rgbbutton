@@ -1,6 +1,7 @@
 #include "dfrobot_i2c_rgbbutton.h"
 
 #include <algorithm>
+#include <cinttypes>
 #include <cstring>
 
 #include "esphome/core/log.h"
@@ -13,7 +14,6 @@ static const char *const TAG = "dfrobot_i2c_rgbbutton";
 static const uint16_t PRODUCT_ID = 0x43DF;
 
 // Register map (from the DFRobot_RGBButton library)
-static const uint8_t REG_I2C_ADDR = 0x00;
 static const uint8_t REG_RED = 0x01;  // followed by green (0x02) and blue (0x03)
 static const uint8_t REG_BUTTON = 0x04;
 static const uint8_t REG_PID_MSB = 0x09;  // followed by PID LSB (0x0A)
@@ -70,9 +70,6 @@ void DFRobotI2CRGBButton::dump_config() {
     ESP_LOGE(TAG, "  Communication with the module failed!");
     return;
   }
-  uint8_t reported_address;
-  if (this->read_register(REG_I2C_ADDR, &reported_address, 1) == i2c::ERROR_OK)
-    ESP_LOGCONFIG(TAG, "  Address set by DIP switch: 0x%02X", reported_address);
   if (this->interrupt_pin_ != nullptr) {
     LOG_PIN("  Interrupt Pin: ", this->interrupt_pin_);
   } else {
@@ -133,15 +130,20 @@ bool DFRobotI2CRGBButton::write_color(uint8_t red, uint8_t green, uint8_t blue, 
 
   if (this->write_register(REG_RED, rgb, sizeof(rgb)) != i2c::ERROR_OK) {
     // Keep the old cached color so the next call retries the write.
-    ESP_LOGW(TAG, "Writing color 0x%02X%02X%02X failed", red, green, blue);
-    this->status_set_warning(LOG_STR("I2C write failed"));
+    if (!this->write_failed_)
+      ESP_LOGW(TAG, "Writing color 0x%02X%02X%02X failed", red, green, blue);
+    this->write_failed_ = true;
+    this->update_status_();
     return false;
   }
   std::memcpy(this->color_, rgb, sizeof(rgb));
   this->color_written_ = true;
   ESP_LOGV(TAG, "Color set to 0x%02X%02X%02X", red, green, blue);
-  if (!this->read_failed_)
-    this->status_clear_warning();
+  if (this->write_failed_) {
+    ESP_LOGI(TAG, "Writing the color works again");
+    this->write_failed_ = false;
+    this->update_status_();
+  }
   return true;
 }
 
@@ -157,13 +159,13 @@ void DFRobotI2CRGBButton::read_button_() {
     if (!this->read_failed_)
       ESP_LOGW(TAG, "Reading the button state failed");
     this->read_failed_ = true;
-    this->status_set_warning(LOG_STR("I2C read failed"));
+    this->update_status_();
     return;  // keep the last known state
   }
   if (this->read_failed_) {
-    ESP_LOGI(TAG, "Communication restored");
+    ESP_LOGI(TAG, "Reading the button state works again");
     this->read_failed_ = false;
-    this->status_clear_warning();
+    this->update_status_();
   }
   this->publish_button_(value != 0);
 }
@@ -177,6 +179,14 @@ void DFRobotI2CRGBButton::publish_button_(bool pressed) {
   if (this->button_sensor_ != nullptr)
     this->button_sensor_->publish_state(pressed);
 #endif
+}
+
+void DFRobotI2CRGBButton::update_status_() {
+  if (this->read_failed_ || this->write_failed_) {
+    this->status_set_warning(LOG_STR("I2C communication failed"));
+  } else {
+    this->status_clear_warning();
+  }
 }
 
 // ---- Detection ----
