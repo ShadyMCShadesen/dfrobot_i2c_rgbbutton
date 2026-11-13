@@ -14,6 +14,41 @@ dfrobot_i2c_rgbbutton:
   - id: button_1
     address: 0x23
     i2c_id: bus_a
+    brightness: 60%
+    blink_interval: 1s
+    refresh_interval: 30s
+    long_press_time: 800ms
+    multi_click_time: 300ms
+    on_click:
+      - dfrobot_i2c_rgbbutton.set_color:
+          id: [button_1, button_2]
+          color: orange
+          blink: true
+    on_double_click:
+      - dfrobot_i2c_rgbbutton.set_color:
+          id: button_2
+          color: red
+          alternate_color: blue
+    on_triple_click:
+      - dfrobot_i2c_rgbbutton.set_brightness:
+          id: [button_1, button_2]
+          brightness: !lambda "return id(button_1).get_brightness() > 0.5f ? 0.2f : 1.0f;"
+    on_long_press:
+      - if:
+          condition:
+            dfrobot_i2c_rgbbutton.is_locked: button_2
+          then:
+            - dfrobot_i2c_rgbbutton.unlock: button_2
+          else:
+            - dfrobot_i2c_rgbbutton.lock: [button_2]
+      - if:
+          condition:
+            and:
+              - dfrobot_i2c_rgbbutton.is_connected: button_2
+              - dfrobot_i2c_rgbbutton.is_pressed:
+                  id: button_2
+          then:
+            - logger.log: "button 2 pressed"
   - id: button_2
     address: 0x24
     interrupt_pin: ${int_pin}
@@ -55,6 +90,40 @@ binary_sensor:
     name: Second button
     filters:
       - delayed_off: 20ms
+
+  - platform: dfrobot_i2c_rgbbutton
+    dfrobot_i2c_rgbbutton_id: button_1
+    type: connected
+  - platform: dfrobot_i2c_rgbbutton
+    dfrobot_i2c_rgbbutton_id: button_2
+    type: connected
+    name: Second button connected
+
+event:
+  - platform: dfrobot_i2c_rgbbutton
+    dfrobot_i2c_rgbbutton_id: button_2
+    on_event:
+      - logger.log:
+          format: "event %s"
+          args: [event_type.c_str()]
+
+script:
+  - id: test_api
+    then:
+      - dfrobot_i2c_rgbbutton.set_brightness:
+          id: button_2
+          brightness: 50%
+      - dfrobot_i2c_rgbbutton.set_color:
+          id: button_2
+          color: green
+          blink: !lambda "return id(button_1).get_button_state();"
+      - lambda: |-
+          id(button_2)->blink(0xFF0000, 0x0000FF);
+          id(button_2)->set_brightness(0.5f);
+          id(button_2)->lock();
+          id(button_2)->unlock();
+          ESP_LOGD("test", "%d %d %d", id(button_2)->is_blinking(), id(button_2)->is_locked(),
+                   id(button_2)->is_connected());
 
 light:
   - platform: dfrobot_i2c_rgbbutton

@@ -32,3 +32,16 @@ dfrobot_i2c_rgbbutton:
       on_release:
         then:
           - lambda: id(i2c_rgbbutton).set_button_color(i2c_rgbbutton->eGeneralRGBValue_t::eBlack);
+
+# Short forms with a single button (no id needed)
+script:
+  - id: short_forms
+    then:
+      - dfrobot_i2c_rgbbutton.set_color: red
+      - dfrobot_i2c_rgbbutton.set_brightness: 30%
+      - dfrobot_i2c_rgbbutton.lock:
+      - dfrobot_i2c_rgbbutton.unlock: i2c_rgbbutton
+      - if:
+          condition: dfrobot_i2c_rgbbutton.is_pressed
+          then:
+            - logger.log: pressed

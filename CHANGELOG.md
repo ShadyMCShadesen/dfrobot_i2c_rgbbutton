@@ -1,5 +1,36 @@
 # Changelog
 
+## v2.1.0
+
+v2.0.0 configurations keep working.
+
+### New
+
+- **Clicks:** `on_click`, `on_double_click`, `on_triple_click` and `on_long_press` on the hub,
+  with `long_press_time` and `multi_click_time`. Replaces long `on_multi_click` blocks.
+- **`event` platform:** an event entity with the types `click`, `double_click`, `triple_click`
+  and `long_press`, so one Home Assistant automation can handle all buttons.
+- **Blinking:** `set_color` with `blink: true` (color / off) or `alternate_color:` (two colors),
+  C++ `blink(color, alternate)`. Hub option `blink_interval` (default `500ms`); all buttons with
+  the same interval blink in the same phase.
+- **Brightness:** hub option `brightness` and action `dfrobot_i2c_rgbbutton.set_brightness`,
+  applied to every color (also blinking and the light).
+- **Several buttons at once:** `set_color`, `set_brightness`, `lock` and `unlock` accept a list
+  of ids.
+- **Lock:** actions `dfrobot_i2c_rgbbutton.lock` / `unlock`; while locked, presses are ignored.
+- **Conditions:** `dfrobot_i2c_rgbbutton.is_pressed`, `is_locked`, `is_connected`.
+- **Connection monitoring:** `binary_sensor` with `type: connected` (diagnostic entity).
+
+### Changed behaviour
+
+- A module that is missing at boot no longer disables the component. It is looked for every
+  5 s and set up when it appears (a device with the wrong product ID still fails).
+- A module that stops answering (three errors in a row) is reported as lost and looked for every
+  5 s; its button reads as released meanwhile. When it is back, its color is written again.
+- The color is rewritten every `refresh_interval` (default `60s`), so a module that lost power
+  for a moment gets its color back. `refresh_interval: never` disables this.
+- Log messages for bus errors changed, see the troubleshooting table in the README.
+
 ## v2.0.0
 
 Version 1 configurations keep working. Please read **Changed behaviour** before updating.
